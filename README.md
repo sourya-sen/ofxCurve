@@ -1,4 +1,4 @@
-[![Build status](https://travis-ci.org/sourya.sen/ofxCurve.svg?branch=master)](https://travis-ci.org/sourya-sen/ofxCurve)
+[![Build status](https://travis-ci.org/sourya-sen/ofxCurve.svg?branch=master)](https://travis-ci.org/sourya-sen/ofxCurve)
 
 openFrameworks addon for generating interpolated points on a curve based on a set of control points.
 
