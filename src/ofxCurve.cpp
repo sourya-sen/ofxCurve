@@ -20,19 +20,6 @@ Curve coreBezier(glm::vec3 &p0,
     
     B = glm::mat4(x, y, z, w);
     
-    
-    /*
-     //Tangents.
-     
-     Mat4f Bprime; //First derivative to get T
-     
-     Bprime.setRow(0, glm::vec4(-3, 6, -3, 0));
-     Bprime.setRow(1, glm::vec4(3, -12, 9, 0));
-     Bprime.setRow(2, glm::vec4(0, 6, -9, 0));
-     Bprime.setRow(3, glm::vec4(0, 0, 3, 0));
-     */
-    
-    
     //Control Points;
     glm::mat4 controlPoints;
     
@@ -49,23 +36,6 @@ Curve coreBezier(glm::vec3 &p0,
         
         glm::vec4 tempVertex = controlPoints * B * glm::vec4(1, t, pow(t, 2), pow(t, 3));
         R[i] = glm::vec3(tempVertex);
-        
-        //Trying to get T, N, B working.
-        //glm::vec4 tempTangent = controlPoints * Bprime * glm::vec4(1, t, pow(t, 2), pow(t, 3));
-        // R[i].T = tempTangent.getXYZ().normalized();
-        
-        /*
-         glm::vec3 B;
-         
-         if (i < 1) {
-         R[i].B = Binit;
-         R[i].N = (Binit.cross(R[i].T)).normalized();
-         }
-         else {
-         R[i].N = (R[i - 1].B.cross(R[i].T)).normalized();
-         R[i].B = (R[i].T.cross(R[i].N)).normalized();
-         }
-         */
         
     }
     
