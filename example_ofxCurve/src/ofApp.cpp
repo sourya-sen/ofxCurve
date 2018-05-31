@@ -5,11 +5,11 @@ void ofApp::setup(){
     
     //Have a vector<glm::vec3> of control points. They must be 3n + 1 in number, otherwise the interpolations won't run.
     cps.push_back(glm::vec3(100.0, 150.0, 0.0));
-    cps.push_back(glm::vec3(200.0, 200, 0.0));
-    cps.push_back(glm::vec3(500.0, 650.0, 0.0));
-    cps.push_back(glm::vec3(800.0, 400.0, 0.0));
-    cps.push_back(glm::vec3(400.0, 450.0, 0.0));
-    cps.push_back(glm::vec3(200.0, 90, 0.0));
+    cps.push_back(glm::vec3(200.0, 200.0, 0.0));
+    cps.push_back(glm::vec3(300.0, 650.0, 0.0));
+    cps.push_back(glm::vec3(400.0, 400.0, 0.0));
+    cps.push_back(glm::vec3(500.0, 450.0, 0.0));
+    cps.push_back(glm::vec3(600.0, 222.0, 0.0));
     cps.push_back(glm::vec3(800.0, 150.0, 0.0));
     
     
@@ -19,7 +19,6 @@ void ofApp::setup(){
     pointsCR = evalCR(cps, 1000); //evalCR interpolates a Catmull-Rom spline
     
     ofSetBackgroundColor(0);
-    
 }
 
 //--------------------------------------------------------------
@@ -46,7 +45,6 @@ void ofApp::draw(){
     for(int i = 0; i<pointsCR.size(); i++){
         ofDrawCircle(pointsCR[i], 2);
     }
-    
     
     //The original control points.
     

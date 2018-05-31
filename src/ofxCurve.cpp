@@ -1,10 +1,10 @@
 #include "ofxCurve.h"
 
 //--------------------------------------------------------------------------------------
-Curve coreBezier(glm::vec3 p0,
-                 glm::vec3 p1,
-                 glm::vec3 p2,
-                 glm::vec3 p3,
+Curve coreBezier(glm::vec3 &p0,
+                 glm::vec3 &p1,
+                 glm::vec3 &p2,
+                 glm::vec3 &p3,
                  unsigned steps) {
     
     Curve R(steps + 1);
@@ -43,9 +43,9 @@ Curve coreBezier(glm::vec3 p0,
     
     controlPoints = glm::mat4(cx, cy, cz, cw);
     
-    for (unsigned i = 0; i <= steps; ++i) {
+    for (unsigned i = 0; i < steps; ++i) {
         // ...
-        float t = float(i)/steps;
+        float t = float(i)/float(steps);
         
         glm::vec4 tempVertex = controlPoints * B * glm::vec4(1, t, pow(t, 2), pow(t, 3));
         R[i] = glm::vec3(tempVertex);
