@@ -30,7 +30,7 @@ Curve coreBezier(glm::vec3 &p0,
     
     controlPoints = glm::mat4(cx, cy, cz, cw);
     
-    for (unsigned i = 0; i < steps; ++i) {
+    for (unsigned i = 0; i <= steps; ++i) {
         // ...
         float t = float(i)/float(steps);
         
