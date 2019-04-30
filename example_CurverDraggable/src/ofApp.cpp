@@ -127,7 +127,7 @@ void ofApp::draw(){
         ofDrawBitmapString(ofToString(i+1), cps[i] + pad);
     }
     
-    ofDrawBitmapString("PUSH ANY KEY OT CHANGE CURVE MODE:\n\nGreen: Bezier\nRed: BSpline\nBlue: Catmull-Rom\n", 10, 40);
+    ofDrawBitmapString("PUSH ANY KEY TO CHANGE CURVE MODE:\n\nGreen: Bezier\nRed: BSpline\nBlue: Catmull-Rom\n", 10, 40);
 
     ofPopStyle();
 
