@@ -4,12 +4,16 @@ openFrameworks addon for generating interpolated points on a curve based on a se
 
 //--
 
-ADDED: 
+ADDED TO ADDON: 
 improved not always compliant to '3n+1 amount of points' from Sam McElhinney:
 https://forum.openframeworks.cc/t/ofxcurve-addon-to-interpolate-curves-from-a-set-of-control-points/29645/2
 
-+ example_CurverDraggable. 
+ADDED EXAMPLE
++ "/example_CurverDraggable/" 
 requires https://github.com/genekogan/ofxDraggable
+to edit and dragg curve points.
+
+![ofxCurve](screenshots/ofxCurve2.png)
 
 //--
 
