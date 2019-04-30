@@ -2,13 +2,12 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    ofSetFrameRate(60);
+    ofBackground(32);
 
     c = 1;//type curve to show
     SHOW_A = true;
 
-    ofSetFrameRate(60);
-
-    ofBackground(32);
     draggable.setAuto(true);
 
     glm::vec3(p0);
@@ -23,7 +22,6 @@ void ofApp::setup(){
 
     int distToH = 100;
     int yH = 300;
-
     p0 = glm::vec3(100.0, yH, 0.0);
     p1 = glm::vec3(100.0, yH, 0.0);
     p2 = glm::vec3(200.0, yH + distToH, 0.0);
@@ -45,7 +43,6 @@ void ofApp::setup(){
     draggable.addPoint(p8.x, p8.y);
 
     cps.clear();
-    //Have a vector<glm::vec3> of control points. They must be 3n + 1 in number, otherwise the interpolations won't run.
     cps.push_back(glm::vec3(p0));
     cps.push_back(glm::vec3(p1));
     cps.push_back(glm::vec3(p2));
@@ -56,17 +53,7 @@ void ofApp::setup(){
     cps.push_back(glm::vec3(p7));
     cps.push_back(glm::vec3(p8));
 
-//    //Call the functions with a 'step' variable, which determines the density of interpolated points.
-//
-//    pointsBezier = evalBezier(cps, reso); //evalBezier interpolates a bezier curve
-//
-//    pointsBSpline = evalBspline(cps, reso); //evalBspline interpolates a BSpline
-//
-//    pointsCR = evalCR(cps, reso); //evalCR interpolates a Catmull-Rom spline
-
     //-
-
-//    ofSetBackgroundColor(0);
 }
 
 //--------------------------------------------------------------
@@ -83,7 +70,7 @@ void ofApp::draw(){
 
     //-
 
-    // bezier
+    // select curve to show
 
     if (SHOW_A)
     {
@@ -109,21 +96,26 @@ void ofApp::draw(){
         }
     }
 
-    //The original control points.
-    
-    ofSetColor(255, 128);
+    //-
+
+    //The control points
+
     for(int i = 0; i<cps.size(); i++)
     {
+        //-
+
+        ofSetColor(255, 128);
         ofDrawCircle(cps[i], bezP_radius);
 
+        //-
+
+        // numbers id
         ofSetColor(ofColor::white);
         ofPoint pad;
-
         if ((i == 0)||(i == cps.size()-1))
             pad.set(10, -10);
         else
             pad.set(10, 10);
-
         ofDrawBitmapString(ofToString(i+1), cps[i] + pad);
     }
     
@@ -133,14 +125,14 @@ void ofApp::draw(){
 
     //--
 
-
-    //Have a vector<glm::vec3> of control points. They must be 3n + 1 in number, otherwise the interpolations won't run.
     for (int i=0; i<draggable.size(); i++)
     {
         cps[i] = (glm::vec3(draggable.get(i)));
     }
 
-    //Call the functions with a 'step' variable, which determines the density of interpolated points.
+    //-
+
+    // Call the functions with a 'step' variable, which determines the density of interpolated points.
 
     if (SHOW_A)
         pointsBezier = evalBezier(cps, reso); //evalBezier interpolates a bezier curve
@@ -154,15 +146,11 @@ void ofApp::draw(){
     //--
 
     draggable.draw();
-
-//    for (int i=0; i<draggable.size(); i++) {
-//        ofPoint p = draggable.get(i);
-//        ofLog() << p;
-//    }
-
     ofDrawBitmapString("drag the points!", 10, 500);
 
     //--
+
+    // white line start to end
 
     ofPushStyle();
     ofSetColor(ofColor::white);
@@ -193,23 +181,6 @@ void ofApp::keyPressed(int key){
     }
 
     c = (c + 1) % 3;
-
-
-//    //Have a vector<glm::vec3> of control points. They must be 3n + 1 in number, otherwise the interpolations won't run.
-//    cps.clear();
-//    cps.push_back(glm::vec3(draggable.get(0)));
-//    cps.push_back(glm::vec3(draggable.get(1)));
-//    cps.push_back(glm::vec3(draggable.get(2)));
-//    cps.push_back(glm::vec3(draggable.get(3)));
-//    cps.push_back(glm::vec3(draggable.get(4)));
-//    cps.push_back(glm::vec3(draggable.get(5)));
-//    cps.push_back(glm::vec3(draggable.get(6)));
-//
-//
-//    //Call the functions with a 'step' variable, which determines the density of interpolated points.
-//    pointsBezier = evalBezier(cps, reso); //evalBezier interpolates a bezier curve
-//    pointsBSpline = evalBspline(cps, reso); //evalBspline interpolates a BSpline
-//    pointsCR = evalCR(cps, reso); //evalCR interpolates a Catmull-Rom spline
 
 }
 

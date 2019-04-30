@@ -29,11 +29,15 @@ class ofApp : public ofBaseApp{
     vector<glm::vec3> pointsBSpline;
     vector<glm::vec3> pointsCR;
 
-ofxDraggable draggable;
+    //-
 
     bool SHOW_A, SHOW_B, SHOW_C;
     int c;
     
     int reso = 500;//resolution of interpolation
     int bezP_radius = 1;
+
+    //-
+    
+    ofxDraggable draggable;
 };
