@@ -58,7 +58,17 @@ Curve evalBezier(vector<glm::vec3> &P, unsigned steps) {
     
     if(run){
         for (unsigned i = 0; i < P.size() - 3; ++i) {
-            Curve smallBez = coreBezier(P[3 * i], P[3 * i + 1], P[3 * i + 2], P[3 * i + 3], steps);
+
+            int j = 3*i;
+            int k = 3*i+1; if(k > P.size()-1) k = j;
+            int m = 3*i+2; if(m > P.size()-1) m = k;
+            int n = 3*i+3; if(n > P.size()-1) n = m;
+            Curve smallBez = coreBezier(P[j], P[k], P[m], P[n], steps);
+
+            //-
+
+//            Curve smallBez = coreBezier(P[3 * i], P[3 * i + 1], P[3 * i + 2], P[3 * i + 3], steps);
+
             bezier.insert(bezier.end(), smallBez.begin(), smallBez.end());
         }
     }
@@ -84,12 +94,27 @@ Curve evalBspline(vector<glm::vec3> &P, unsigned steps){
             
             //Control Points
             glm::mat4 cPoint;
-            
-            glm::vec4 cx = glm::vec4(P[i].x, P[i].y, P[i].z, 1);
-            glm::vec4 cy = glm::vec4(P[i+1].x, P[i+1].y, P[i+1].z, 1);
-            glm::vec4 cz = glm::vec4(P[i+2].x, P[i+2].y, P[i+2].z, 1);
-            glm::vec4 cw = glm::vec4(P[i+3].x, P[i+3].y, P[i+3].z, 1);
-            
+
+
+            //--
+
+            int j = i;
+            int k = i+1; if(k > P.size()-1) k = j;
+            int m = i+2; if(m > P.size()-1) m = k;
+            int n = i+3; if(n > P.size()-1) n = m;
+
+            glm::vec4 cx = glm::vec4(P[j].x, P[j].y, P[j].z, 1);   //etc
+            glm::vec4 cy = glm::vec4(P[j+1].x, P[j+1].y, P[j+1].z, 1);
+            glm::vec4 cz = glm::vec4(P[j+2].x, P[j+2].y, P[j+2].z, 1);
+            glm::vec4 cw = glm::vec4(P[j+3].x, P[j+3].y, P[j+3].z, 1);
+
+            //--
+
+//            glm::vec4 cx = glm::vec4(P[i].x, P[i].y, P[i].z, 1);
+//            glm::vec4 cy = glm::vec4(P[i+1].x, P[i+1].y, P[i+1].z, 1);
+//            glm::vec4 cz = glm::vec4(P[i+2].x, P[i+2].y, P[i+2].z, 1);
+//            glm::vec4 cw = glm::vec4(P[i+3].x, P[i+3].y, P[i+3].z, 1);
+
             cPoint = glm::mat4(cx, cy, cz, cw);
             
             //Basis Matrix for Bspline
@@ -158,12 +183,27 @@ Curve evalCR(vector<glm::vec3> &P, unsigned steps){
         
         //Control Points
         glm::mat4 cPoint;
-        
-        glm::vec4 cx = glm::vec4(P[(i - 1) % P.size()].x, P[(i - 1) % P.size()].y, P[(i - 2) % P.size()].z, 1);
-        glm::vec4 cy = glm::vec4(P[(i) % P.size()].x, P[(i) % P.size()].y, P[(i) % P.size()].z, 1);
-        glm::vec4 cz = glm::vec4(P[(i + 1) % P.size()].x, P[(i + 1) % P.size()].y, P[(i + 1) % P.size()].z, 1);
-        glm::vec4 cw = glm::vec4(P[(i + 2) % P.size()].x, P[(i + 2) % P.size()].y, P[(i + 2) % P.size()].z, 1);
-        
+
+        //--
+
+        int h = (i-2) % P.size();   if(h < 0) h = 0;
+        int j = (i-1) % P.size();   if(j < 0) j = 0;
+        int k = (i) % P.size();     if(k > P.size()-1) k = j;
+        int m = (i+1) % P.size();   if(m > P.size()-1) m = k;
+        int n = (i+2) % P.size();   if(n > P.size()-1) n = m;
+
+        glm::vec4 cx = glm::vec4(P[j].x, P[j].y, P[h].z, 1);   //etc
+        glm::vec4 cy = glm::vec4(P[(j) % P.size()].x, P[(j) % P.size()].y, P[(j) % P.size()].z, 1);
+        glm::vec4 cz = glm::vec4(P[(j + 1) % P.size()].x, P[(j + 1) % P.size()].y, P[(j + 1) % P.size()].z, 1);
+        glm::vec4 cw = glm::vec4(P[(j + 2) % P.size()].x, P[(j + 2) % P.size()].y, P[(j + 2) % P.size()].z, 1);
+
+        //--
+
+//        glm::vec4 cx = glm::vec4(P[(i - 1) % P.size()].x, P[(i - 1) % P.size()].y, P[(i - 2) % P.size()].z, 1);
+//        glm::vec4 cy = glm::vec4(P[(i) % P.size()].x, P[(i) % P.size()].y, P[(i) % P.size()].z, 1);
+//        glm::vec4 cz = glm::vec4(P[(i + 1) % P.size()].x, P[(i + 1) % P.size()].y, P[(i + 1) % P.size()].z, 1);
+//        glm::vec4 cw = glm::vec4(P[(i + 2) % P.size()].x, P[(i + 2) % P.size()].y, P[(i + 2) % P.size()].z, 1);
+
         cPoint = glm::mat4(cx, cy, cz, cw);
         
         //Catmull-Rom Basis Matrix
