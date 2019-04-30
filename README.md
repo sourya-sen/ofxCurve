@@ -15,8 +15,8 @@ ADDED EXAMPLE
 requires https://github.com/genekogan/ofxDraggable
 to edit and drag curve points by mouse.
 
-Example bypass the above requeriments and disables: "Error: evalBezier must be called with 3n + 1 control points"
-Also you can see first and last point duplicated, so curve is closer to limits:
+Example bypass the above requeriments and disables: "Error: must be called with 3n + 1 control points".
+Also you can see first and last point duplicated, so the curve is closer to limits:
 
 ![ofxCurve](screenshots/ofxCurve3.png)
 
