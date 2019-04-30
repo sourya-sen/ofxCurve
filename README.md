@@ -4,8 +4,10 @@ openFrameworks addon for generating interpolated points on a curve based on a se
 
 //--
 
+// FORK CHANGES:
+
 ADDED TO ADDON CLASS: 
-improved not 'always compliant to 3n+1 amount of points' from Sam McElhinney:
++ improved not 'always compliant to 3n+1 amount of points' from Sam McElhinney:
 https://forum.openframeworks.cc/t/ofxcurve-addon-to-interpolate-curves-from-a-set-of-control-points/29645/2
 
 ADDED EXAMPLE
