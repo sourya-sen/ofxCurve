@@ -16,8 +16,7 @@ requires https://github.com/genekogan/ofxDraggable
 to edit and drag curve points by mouse.
 
 Example bypass the above requeriments and disables: "Error: must be called with 3n + 1 control points".
-
-Also you can see first and last point duplicated, so the curve is closer to limits:
+Also you can see first and last points duplicated, so the curve is closer to limits:
 
 ![ofxCurve](screenshots/ofxCurve3.png)
 
