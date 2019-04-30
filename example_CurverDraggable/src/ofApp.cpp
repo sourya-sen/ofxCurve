@@ -11,6 +11,7 @@ void ofApp::setup(){
     ofBackground(32);
     draggable.setAuto(true);
 
+    glm::vec3(p0);
     glm::vec3(p1);
     glm::vec3(p2);
     glm::vec3(p3);
@@ -18,10 +19,12 @@ void ofApp::setup(){
     glm::vec3(p5);
     glm::vec3(p6);
     glm::vec3(p7);
+    glm::vec3(p8);
 
     int distToH = 100;
     int yH = 300;
 
+    p0 = glm::vec3(100.0, yH, 0.0);
     p1 = glm::vec3(100.0, yH, 0.0);
     p2 = glm::vec3(200.0, yH + distToH, 0.0);
     p3 = glm::vec3(300.0, yH - distToH, 0.0);
@@ -29,7 +32,9 @@ void ofApp::setup(){
     p5 = glm::vec3(500.0, yH - distToH, 0.0);
     p6 = glm::vec3(600.0, yH + distToH, 0.0);
     p7 = glm::vec3(800.0, yH, 0.0);
+    p8 = glm::vec3(800.0, yH, 0.0);
 
+    draggable.addPoint(p0.x, p0.y);
     draggable.addPoint(p1.x, p1.y);
     draggable.addPoint(p2.x, p2.y);
     draggable.addPoint(p3.x, p3.y);
@@ -37,9 +42,11 @@ void ofApp::setup(){
     draggable.addPoint(p5.x, p5.y);
     draggable.addPoint(p6.x, p6.y);
     draggable.addPoint(p7.x, p7.y);
+    draggable.addPoint(p8.x, p8.y);
 
     cps.clear();
     //Have a vector<glm::vec3> of control points. They must be 3n + 1 in number, otherwise the interpolations won't run.
+    cps.push_back(glm::vec3(p0));
     cps.push_back(glm::vec3(p1));
     cps.push_back(glm::vec3(p2));
     cps.push_back(glm::vec3(p3));
@@ -47,6 +54,7 @@ void ofApp::setup(){
     cps.push_back(glm::vec3(p5));
     cps.push_back(glm::vec3(p6));
     cps.push_back(glm::vec3(p7));
+    cps.push_back(glm::vec3(p8));
 
 //    //Call the functions with a 'step' variable, which determines the density of interpolated points.
 //
@@ -58,7 +66,7 @@ void ofApp::setup(){
 
     //-
 
-    ofSetBackgroundColor(0);
+//    ofSetBackgroundColor(0);
 }
 
 //--------------------------------------------------------------
@@ -109,7 +117,14 @@ void ofApp::draw(){
         ofDrawCircle(cps[i], bezP_radius);
 
         ofSetColor(ofColor::white);
-        ofDrawBitmapString(ofToString(i+1), cps[i] + ofPoint(10, 10));
+        ofPoint pad;
+
+        if ((i == 0)||(i == cps.size()-1))
+            pad.set(10, -10);
+        else
+            pad.set(10, 10);
+
+        ofDrawBitmapString(ofToString(i+1), cps[i] + pad);
     }
     
     ofDrawBitmapString("PUSH ANY KEY OT CHANGE CURVE MODE:\n\nGreen: Bezier\nRed: BSpline\nBlue: Catmull-Rom\n", 10, 40);

@@ -46,14 +46,22 @@ Curve coreBezier(glm::vec3 &p0,
 //--------------------------------------------------------------------------------------
 Curve evalBezier(vector<glm::vec3> &P, unsigned steps) {
     bool run;
-    
-    if (P.size() < 4 || P.size() % 3 != 1) {
-        cout << "Error: evalBezier must be called with 3n + 1 control points" << endl;
-        run = false;
-    } else {
-        run = true;
-    }
-    
+
+    //-
+
+    // bypass check requeriments
+
+//    if (P.size() < 4 || P.size() % 3 != 1) {
+//        cout << "Error: evalBezier must be called with 3n + 1 control points" << endl;
+//        run = false;
+//    } else {
+//        run = true;
+//    }
+
+    run = true;
+
+    //--
+
     Curve bezier;
     
     if(run){
@@ -79,14 +87,22 @@ Curve evalBezier(vector<glm::vec3> &P, unsigned steps) {
 //--------------------------------------------------------------------------------------
 Curve evalBspline(vector<glm::vec3> &P, unsigned steps){
     bool run;
-    
-    if (P.size() < 4 || P.size() % 3 != 1) {
-        cout << "Error: evalBspline must be called with 3n + 1 control points" << endl;
-        run = false;
-    } else {
-        run = true;
-    }
-    
+
+    //-
+
+    // bypass check requeriments
+
+//    if (P.size() < 4 || P.size() % 3 != 1) {
+//        cout << "Error: evalBspline must be called with 3n + 1 control points" << endl;
+//        run = false;
+//    } else {
+//        run = true;
+//    }
+
+    run = true;
+
+    //-
+
     Curve bSpline;
     
     if(run){
@@ -168,14 +184,22 @@ Curve evalBspline(vector<glm::vec3> &P, unsigned steps){
 //--------------------------------------------------------------------------------------
 Curve evalCR(vector<glm::vec3> &P, unsigned steps){
     bool run;
-    
-    if (P.size() < 4 || P.size() % 3 != 1) {
-        cout << "Error: evalCRmust be called with 3n + 1 control points" << endl;
-        run = false;
-    } else {
-        run = true;
-    }
-    
+
+    //-
+
+    // bypass check requeriments
+
+//    if (P.size() < 4 || P.size() % 3 != 1) {
+//        cout << "Error: evalCRmust be called with 3n + 1 control points" << endl;
+//        run = false;
+//    } else {
+//        run = true;
+//    }
+
+    run = true;
+
+    //-
+
     Curve Cr;
     
     if(run){
