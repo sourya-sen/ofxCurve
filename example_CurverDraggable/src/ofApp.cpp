@@ -2,13 +2,66 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+//    ofSetLogLevel(OF_LOG_NOTICE);
+    ofSetLogLevel(OF_LOG_VERBOSE);
+
     ofSetFrameRate(60);
     ofBackground(32);
 
-    c = 1;//type curve to show
-    SHOW_A = true;
+    c = 1;//selected type curve to show
+    SHOW_Bezier = true;
+
+    int distToH = 100;//some helpers
+    int yH = 300;
 
     draggable.setAuto(true);
+
+    //--
+
+    // CREATE AND INITIATE POINTS
+
+    //-
+
+#ifdef CREATE_CURVE_MODE_CLASSIC
+    //3n + 1 control points
+
+    glm::vec3(p1);
+    glm::vec3(p2);
+    glm::vec3(p3);
+    glm::vec3(p4);
+    glm::vec3(p5);
+    glm::vec3(p6);
+    glm::vec3(p7);
+
+    p1 = glm::vec3(100.0, yH, 0.0);
+    p2 = glm::vec3(200.0, yH + distToH, 0.0);
+    p3 = glm::vec3(300.0, yH - distToH, 0.0);
+    p4 = glm::vec3(400.0, yH, 0.0);
+    p5 = glm::vec3(500.0, yH - distToH, 0.0);
+    p6 = glm::vec3(600.0, yH + distToH, 0.0);
+    p7 = glm::vec3(800.0, yH, 0.0);
+
+    draggable.addPoint(p1.x, p1.y);
+    draggable.addPoint(p2.x, p2.y);
+    draggable.addPoint(p3.x, p3.y);
+    draggable.addPoint(p4.x, p4.y);
+    draggable.addPoint(p5.x, p5.y);
+    draggable.addPoint(p6.x, p6.y);
+    draggable.addPoint(p7.x, p7.y);
+
+    cps.clear();
+    cps.push_back(glm::vec3(p1));
+    cps.push_back(glm::vec3(p2));
+    cps.push_back(glm::vec3(p3));
+    cps.push_back(glm::vec3(p4));
+    cps.push_back(glm::vec3(p5));
+    cps.push_back(glm::vec3(p6));
+    cps.push_back(glm::vec3(p7));
+
+    //--
+
+#else
+    //non 3n + 1 control points
 
     glm::vec3(p0);
     glm::vec3(p1);
@@ -20,8 +73,6 @@ void ofApp::setup(){
     glm::vec3(p7);
     glm::vec3(p8);
 
-    int distToH = 100;
-    int yH = 300;
     p0 = glm::vec3(100.0, yH, 0.0);
     p1 = glm::vec3(100.0, yH, 0.0);
     p2 = glm::vec3(200.0, yH + distToH, 0.0);
@@ -52,8 +103,9 @@ void ofApp::setup(){
     cps.push_back(glm::vec3(p6));
     cps.push_back(glm::vec3(p7));
     cps.push_back(glm::vec3(p8));
+#endif
 
-    //-
+    //--
 }
 
 //--------------------------------------------------------------
@@ -72,7 +124,7 @@ void ofApp::draw(){
 
     // select curve to show
 
-    if (SHOW_A)
+    if (SHOW_Bezier)
     {
         ofSetColor(0, 255, 0);
         for(int i = 0; i<pointsBezier.size(); i++){
@@ -80,7 +132,7 @@ void ofApp::draw(){
         }
     }
 
-    else if (SHOW_B)
+    else if (SHOW_BSpline)
     {
         ofSetColor(255, 0, 0);
         for(int i = 0; i<pointsBSpline.size(); i++){
@@ -88,7 +140,7 @@ void ofApp::draw(){
         }
     }
 
-    else if (SHOW_C)
+    else if (SHOW_CRoll)
     {
         ofSetColor(0, 0, 255);
         for(int i = 0; i<pointsCR.size(); i++){
@@ -110,12 +162,13 @@ void ofApp::draw(){
         //-
 
         // numbers id
-        ofSetColor(ofColor::white);
-        ofPoint pad;
+        ofPoint pad;//show both if they are have the same position..
         if ((i == 0)||(i == cps.size()-1))
             pad.set(10, -10);
         else
             pad.set(10, 10);
+
+        ofSetColor(ofColor::white);
         ofDrawBitmapString(ofToString(i+1), cps[i] + pad);
     }
     
@@ -134,13 +187,13 @@ void ofApp::draw(){
 
     // Call the functions with a 'step' variable, which determines the density of interpolated points.
 
-    if (SHOW_A)
+    if (SHOW_Bezier)
         pointsBezier = evalBezier(cps, reso); //evalBezier interpolates a bezier curve
 
-    if (SHOW_B)
+    if (SHOW_BSpline)
         pointsBSpline = evalBspline(cps, reso); //evalBspline interpolates a BSpline
 
-    if (SHOW_C)
+    if (SHOW_CRoll)
         pointsCR = evalCR(cps, reso); //evalCR interpolates a Catmull-Rom spline
 
     //--
@@ -166,18 +219,18 @@ void ofApp::keyPressed(int key){
 
     if (c == 0)
     {
-        SHOW_A = true;
-        SHOW_B = SHOW_C = false;
+        SHOW_Bezier = true;
+        SHOW_BSpline = SHOW_CRoll = false;
     }
     else if (c == 1)
     {
-        SHOW_B = true;
-        SHOW_A = SHOW_C = false;
+        SHOW_BSpline = true;
+        SHOW_Bezier = SHOW_CRoll = false;
     }
     else if (c == 2)
     {
-        SHOW_C = true;
-        SHOW_B = SHOW_A = false;
+        SHOW_CRoll = true;
+        SHOW_BSpline = SHOW_Bezier = false;
     }
 
     c = (c + 1) % 3;

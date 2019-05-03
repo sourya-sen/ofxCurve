@@ -4,6 +4,8 @@
 #include "ofxCurve.h"
 #include "ofxDraggable.h"
 
+//#define CREATE_CURVE_MODE_CLASSIC
+
 class ofApp : public ofBaseApp{
 
 	public:
@@ -31,13 +33,19 @@ class ofApp : public ofBaseApp{
 
     //-
 
-    bool SHOW_A, SHOW_B, SHOW_C;
+    bool SHOW_Bezier, SHOW_BSpline, SHOW_CRoll;
     int c;
     
     int reso = 500;//resolution of interpolation
-    int bezP_radius = 1;
+    int bezP_radius = 1;//circle preview size
+
+    //-
+
+    int CURVE_MODE_DETECTED;
 
     //-
     
     ofxDraggable draggable;
+
+
 };
