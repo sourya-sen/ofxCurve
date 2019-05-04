@@ -9,6 +9,70 @@
 		<string>46</string>
 		<key>objects</key>
 		<dict>
+			<key>FBF4A8A47B3843AE5D35BB82</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>30</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxDraggable.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxDraggable/src/ofxDraggable.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>A52C9431583EE6924D578689</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>7F6DAE58BB7DC73C53CED83C</string>
+					<string>FBF4A8A47B3843AE5D35BB82</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>src</string>
+				<key>sourceTree</key>
+				<string>&lt;group&gt;</string>
+			</dict>
+			<key>59E7AE9DDB2A9F72A5F9D3AC</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>A52C9431583EE6924D578689</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>ofxDraggable</string>
+				<key>sourceTree</key>
+				<string>&lt;group&gt;</string>
+			</dict>
+			<key>77B41159BA72C79C2EBF3926</key>
+			<dict>
+				<key>fileRef</key>
+				<string>7F6DAE58BB7DC73C53CED83C</string>
+				<key>isa</key>
+				<string>PBXBuildFile</string>
+			</dict>
+			<key>7F6DAE58BB7DC73C53CED83C</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>fileEncoding</key>
+				<string>30</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxDraggable.cpp</string>
+				<key>path</key>
+				<string>../../../addons/ofxDraggable/src/ofxDraggable.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
 			<key>A7D3325C69DDFBD2A353A285</key>
 			<dict>
 				<key>explicitFileType</key>
@@ -240,6 +304,7 @@ fi
 						<string>src</string>
 						<string>src</string>
 						<string>../../../addons/ofxCurve/src</string>
+						<string>../../../addons/ofxDraggable/src</string>
 					</array>
 					<key>MACOSX_DEPLOYMENT_TARGET</key>
 					<string>10.9</string>
@@ -282,6 +347,7 @@ fi
 						<string>src</string>
 						<string>src</string>
 						<string>../../../addons/ofxCurve/src</string>
+						<string>../../../addons/ofxDraggable/src</string>
 					</array>
 					<key>ICON</key>
 					<string>$(ICON_NAME_RELEASE)</string>
@@ -318,6 +384,7 @@ fi
 				<key>children</key>
 				<array>
 					<string>BB77385E1FF08919BB8B2C7A</string>
+					<string>59E7AE9DDB2A9F72A5F9D3AC</string>
 				</array>
 				<key>isa</key>
 				<string>PBXGroup</string>
@@ -3085,6 +3152,7 @@ fi
 						<string>src</string>
 						<string>src</string>
 						<string>../../../addons/ofxCurve/src</string>
+						<string>../../../addons/ofxDraggable/src</string>
 					</array>
 					<key>MACOSX_DEPLOYMENT_TARGET</key>
 					<string>10.9</string>
@@ -3147,6 +3215,7 @@ fi
 						<string>src</string>
 						<string>src</string>
 						<string>../../../addons/ofxCurve/src</string>
+						<string>../../../addons/ofxDraggable/src</string>
 					</array>
 					<key>MACOSX_DEPLOYMENT_TARGET</key>
 					<string>10.9</string>
@@ -3172,6 +3241,7 @@ fi
 					<string>E4B69E200A3A1BDC003C02F2</string>
 					<string>E4B69E210A3A1BDC003C02F2</string>
 					<string>9D2E0E22E880FED1E1D4CC75</string>
+					<string>77B41159BA72C79C2EBF3926</string>
 				</array>
 				<key>isa</key>
 				<string>PBXSourcesBuildPhase</string>
@@ -3211,7 +3281,7 @@ fi
 				<key>isa</key>
 				<string>PBXNativeTarget</string>
 				<key>name</key>
-				<string>example_ofxCurve</string>
+				<string>example_CurverDraggable</string>
 				<key>productName</key>
 				<string>myOFApp</string>
 				<key>productReference</key>
@@ -3228,7 +3298,7 @@ fi
 				<key>isa</key>
 				<string>PBXFileReference</string>
 				<key>path</key>
-				<string>example_ofxCurveDebug.app</string>
+				<string>example_CurverDraggableDebug.app</string>
 				<key>sourceTree</key>
 				<string>BUILT_PRODUCTS_DIR</string>
 			</dict>
@@ -3273,6 +3343,7 @@ fi
 						<string>src</string>
 						<string>src</string>
 						<string>../../../addons/ofxCurve/src</string>
+						<string>../../../addons/ofxDraggable/src</string>
 					</array>
 					<key>ICON</key>
 					<string>$(ICON_NAME_DEBUG)</string>
@@ -3326,6 +3397,7 @@ fi
 						<string>src</string>
 						<string>src</string>
 						<string>../../../addons/ofxCurve/src</string>
+						<string>../../../addons/ofxDraggable/src</string>
 					</array>
 					<key>ICON</key>
 					<string>$(ICON_NAME_RELEASE)</string>
