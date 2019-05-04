@@ -2,18 +2,23 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-//    ofSetLogLevel(OF_LOG_NOTICE);
+
+    //ofSetLogLevel(OF_LOG_NOTICE);
     ofSetLogLevel(OF_LOG_VERBOSE);
 
     ofSetFrameRate(60);
     ofBackground(32);
 
-    c = 1;//selected type curve to show
+    //-
+
+    c = 0; //selected type curve to show. 0 = all
+    c_name = "ALL CURVES";
     SHOW_Bezier = true;
+    SHOW_BSpline = true;
+    SHOW_CRoll = true;
 
-    int distToH = 100;//some helpers
-    int yH = 300;
-
+    //-
+    
     draggable.setAuto(true);
 
     //--
@@ -22,88 +27,139 @@ void ofApp::setup(){
 
     //-
 
-#ifdef CREATE_CURVE_MODE_CLASSIC
-    //3n + 1 control points
+    int distToH = 100;//some helpers
+    int yH = ofGetHeight() / 2;
 
-    glm::vec3(p1);
-    glm::vec3(p2);
-    glm::vec3(p3);
-    glm::vec3(p4);
-    glm::vec3(p5);
-    glm::vec3(p6);
-    glm::vec3(p7);
+    //-
 
-    p1 = glm::vec3(100.0, yH, 0.0);
-    p2 = glm::vec3(200.0, yH + distToH, 0.0);
-    p3 = glm::vec3(300.0, yH - distToH, 0.0);
-    p4 = glm::vec3(400.0, yH, 0.0);
-    p5 = glm::vec3(500.0, yH - distToH, 0.0);
-    p6 = glm::vec3(600.0, yH + distToH, 0.0);
-    p7 = glm::vec3(800.0, yH, 0.0);
+    pointsBezier.clear();
+    pointsBSpline.clear();
+    pointsCR.clear();
 
-    draggable.addPoint(p1.x, p1.y);
-    draggable.addPoint(p2.x, p2.y);
-    draggable.addPoint(p3.x, p3.y);
-    draggable.addPoint(p4.x, p4.y);
-    draggable.addPoint(p5.x, p5.y);
-    draggable.addPoint(p6.x, p6.y);
-    draggable.addPoint(p7.x, p7.y);
+    //-
 
-    cps.clear();
-    cps.push_back(glm::vec3(p1));
-    cps.push_back(glm::vec3(p2));
-    cps.push_back(glm::vec3(p3));
-    cps.push_back(glm::vec3(p4));
-    cps.push_back(glm::vec3(p5));
-    cps.push_back(glm::vec3(p6));
-    cps.push_back(glm::vec3(p7));
+    if ( CREATE_CURVE_MODE_CLASSIC == 1 )
+    {
+        mode_name = "CREATE_CURVE_MODE_CLASSIC";
+
+        // 3n + 1 control points
+
+        // 7 points
+
+        glm::vec3(p1);
+        glm::vec3(p2);
+        glm::vec3(p3);
+        glm::vec3(p4);
+        glm::vec3(p5);
+        glm::vec3(p6);
+        glm::vec3(p7);
+
+        p1 = glm::vec3(100.0, yH, 0.0);
+        p2 = glm::vec3(200.0, yH + distToH, 0.0);
+        p3 = glm::vec3(300.0, yH - distToH, 0.0);
+        p4 = glm::vec3(400.0, yH, 0.0);
+        p5 = glm::vec3(500.0, yH - distToH, 0.0);
+        p6 = glm::vec3(600.0, yH + distToH, 0.0);
+        p7 = glm::vec3(800.0, yH, 0.0);
+
+        draggable.addPoint(p1.x, p1.y);
+        draggable.addPoint(p2.x, p2.y);
+        draggable.addPoint(p3.x, p3.y);
+        draggable.addPoint(p4.x, p4.y);
+        draggable.addPoint(p5.x, p5.y);
+        draggable.addPoint(p6.x, p6.y);
+        draggable.addPoint(p7.x, p7.y);
+
+        cps.clear();
+        cps.push_back(glm::vec3(p1));
+        cps.push_back(glm::vec3(p2));
+        cps.push_back(glm::vec3(p3));
+        cps.push_back(glm::vec3(p4));
+        cps.push_back(glm::vec3(p5));
+        cps.push_back(glm::vec3(p6));
+        cps.push_back(glm::vec3(p7));
+    }
+    //--
+
+    else if (CURVE_MODE_UNLIMITED == 1)
+    {
+        mode_name = "CURVE_MODE_UNLIMITED";
+
+        // non 3n + 1 control points
+
+        // 6 points & duplicated 1st and last one
+
+        glm::vec3(p0);
+        glm::vec3(p1);
+        glm::vec3(p2);
+        glm::vec3(p3);
+        glm::vec3(p4);
+        glm::vec3(p5);
+        glm::vec3(p6);
+        glm::vec3(p7);
+        glm::vec3(p8);
+
+        p0 = glm::vec3(100.0, yH, 0.0);
+        p1 = glm::vec3(100.0, yH, 0.0);
+        p2 = glm::vec3(200.0, yH + distToH, 0.0);
+        p3 = glm::vec3(300.0, yH - distToH, 0.0);
+        p4 = glm::vec3(400.0, yH, 0.0);
+        p5 = glm::vec3(500.0, yH - distToH, 0.0);
+        p6 = glm::vec3(600.0, yH + distToH, 0.0);
+        p7 = glm::vec3(800.0, yH, 0.0);
+        p8 = glm::vec3(800.0, yH, 0.0);
+
+        draggable.addPoint(p0.x, p0.y);
+        draggable.addPoint(p1.x, p1.y);
+        draggable.addPoint(p2.x, p2.y);
+        draggable.addPoint(p3.x, p3.y);
+        draggable.addPoint(p4.x, p4.y);
+        draggable.addPoint(p5.x, p5.y);
+        draggable.addPoint(p6.x, p6.y);
+        draggable.addPoint(p7.x, p7.y);
+        draggable.addPoint(p8.x, p8.y);
+
+        cps.clear();
+        cps.push_back(glm::vec3(p0));
+        cps.push_back(glm::vec3(p1));
+        cps.push_back(glm::vec3(p2));
+        cps.push_back(glm::vec3(p3));
+        cps.push_back(glm::vec3(p4));
+        cps.push_back(glm::vec3(p5));
+        cps.push_back(glm::vec3(p6));
+        cps.push_back(glm::vec3(p7));
+        cps.push_back(glm::vec3(p8));
+    }
 
     //--
 
-#else
-    //non 3n + 1 control points
+    else if (CREATE_CURVE_MINIMAL == 1)
+    {
+        mode_name = "CREATE_CURVE_MINIMAL";
 
-    glm::vec3(p0);
-    glm::vec3(p1);
-    glm::vec3(p2);
-    glm::vec3(p3);
-    glm::vec3(p4);
-    glm::vec3(p5);
-    glm::vec3(p6);
-    glm::vec3(p7);
-    glm::vec3(p8);
+        // minimal curve should have 4
 
-    p0 = glm::vec3(100.0, yH, 0.0);
-    p1 = glm::vec3(100.0, yH, 0.0);
-    p2 = glm::vec3(200.0, yH + distToH, 0.0);
-    p3 = glm::vec3(300.0, yH - distToH, 0.0);
-    p4 = glm::vec3(400.0, yH, 0.0);
-    p5 = glm::vec3(500.0, yH - distToH, 0.0);
-    p6 = glm::vec3(600.0, yH + distToH, 0.0);
-    p7 = glm::vec3(800.0, yH, 0.0);
-    p8 = glm::vec3(800.0, yH, 0.0);
+        glm::vec3(p0);
+        glm::vec3(p1);
+        glm::vec3(p2);
+        glm::vec3(p3);
 
-    draggable.addPoint(p0.x, p0.y);
-    draggable.addPoint(p1.x, p1.y);
-    draggable.addPoint(p2.x, p2.y);
-    draggable.addPoint(p3.x, p3.y);
-    draggable.addPoint(p4.x, p4.y);
-    draggable.addPoint(p5.x, p5.y);
-    draggable.addPoint(p6.x, p6.y);
-    draggable.addPoint(p7.x, p7.y);
-    draggable.addPoint(p8.x, p8.y);
+        p0 = glm::vec3(100.0, yH, 0.0);
+        p1 = glm::vec3(300.0, yH + distToH, 0.0);
+        p2 = glm::vec3(600.0, yH - distToH, 0.0);
+        p3 = glm::vec3(800.0, yH, 0.0);
 
-    cps.clear();
-    cps.push_back(glm::vec3(p0));
-    cps.push_back(glm::vec3(p1));
-    cps.push_back(glm::vec3(p2));
-    cps.push_back(glm::vec3(p3));
-    cps.push_back(glm::vec3(p4));
-    cps.push_back(glm::vec3(p5));
-    cps.push_back(glm::vec3(p6));
-    cps.push_back(glm::vec3(p7));
-    cps.push_back(glm::vec3(p8));
-#endif
+        draggable.addPoint(p0.x, p0.y);
+        draggable.addPoint(p1.x, p1.y);
+        draggable.addPoint(p2.x, p2.y);
+        draggable.addPoint(p3.x, p3.y);
+
+        cps.clear();
+        cps.push_back(glm::vec3(p0));
+        cps.push_back(glm::vec3(p1));
+        cps.push_back(glm::vec3(p2));
+        cps.push_back(glm::vec3(p3));
+    }
 
     //--
 }
@@ -132,7 +188,7 @@ void ofApp::draw(){
         }
     }
 
-    else if (SHOW_BSpline)
+    if (SHOW_BSpline)
     {
         ofSetColor(255, 0, 0);
         for(int i = 0; i<pointsBSpline.size(); i++){
@@ -140,7 +196,7 @@ void ofApp::draw(){
         }
     }
 
-    else if (SHOW_CRoll)
+    if (SHOW_CRoll)
     {
         ofSetColor(0, 0, 255);
         for(int i = 0; i<pointsCR.size(); i++){
@@ -161,7 +217,7 @@ void ofApp::draw(){
 
         //-
 
-        // numbers id
+        // show point numbers id
         ofPoint pad;//show both if they are have the same position..
         if ((i == 0)||(i == cps.size()-1))
             pad.set(10, -10);
@@ -170,9 +226,18 @@ void ofApp::draw(){
 
         ofSetColor(ofColor::white);
         ofDrawBitmapString(ofToString(i+1), cps[i] + pad);
+
+        //-
     }
-    
-    ofDrawBitmapString("PUSH ANY KEY TO CHANGE CURVE MODE:\n\nGreen: Bezier\nRed: BSpline\nBlue: Catmull-Rom\n", 10, 40);
+
+    string str;
+    str += "MODE: " + ofToString(mode_name) + "\n\n";
+    str += "PUSH ANY KEY TO CHANGE CURVE MODE\n\n";
+    str += "CURRENT CURVE: " + ofToString(c_name) + "\n";
+    str += "Green: Bezier\n";
+    str += "Red: BSpline\n";
+    str += "Blue: Catmull-Rom\n";
+    ofDrawBitmapString(str, 10, 40);
 
     ofPopStyle();
 
@@ -199,7 +264,7 @@ void ofApp::draw(){
     //--
 
     draggable.draw();
-    ofDrawBitmapString("drag the points!", 10, 500);
+    ofDrawBitmapString("DRAG THE POINTS!", 10, 200);
 
     //--
 
@@ -217,23 +282,33 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 
-    if (c == 0)
+    c = (c + 1) % 4;
+
+    if (c == 0) //show all curves
     {
-        SHOW_Bezier = true;
-        SHOW_BSpline = SHOW_CRoll = false;
+        SHOW_Bezier = SHOW_BSpline = SHOW_CRoll = true;
+        c_name = "ALL CURVES";
     }
     else if (c == 1)
     {
-        SHOW_BSpline = true;
-        SHOW_Bezier = SHOW_CRoll = false;
+        SHOW_Bezier = true;
+        SHOW_BSpline = SHOW_CRoll = false;
+        c_name = "BEZIER";
     }
     else if (c == 2)
     {
+        SHOW_BSpline = true;
+        SHOW_Bezier = SHOW_CRoll = false;
+        c_name = "BSPLINE";
+    }
+    else if (c == 3)
+    {
         SHOW_CRoll = true;
         SHOW_BSpline = SHOW_Bezier = false;
+        c_name = "CROLL";
     }
 
-    c = (c + 1) % 3;
+
 
 }
 

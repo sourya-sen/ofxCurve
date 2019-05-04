@@ -1,10 +1,14 @@
 #pragma once
 
 #include "ofMain.h"
+
 #include "ofxCurve.h"
 #include "ofxDraggable.h"
 
-//#define CREATE_CURVE_MODE_CLASSIC
+// TODO: must put only one of three modes to 1
+#define CREATE_CURVE_MODE_CLASSIC 1
+#define CURVE_MODE_UNLIMITED 0
+#define CREATE_CURVE_MINIMAL 0
 
 class ofApp : public ofBaseApp{
 
@@ -34,8 +38,10 @@ class ofApp : public ofBaseApp{
     //-
 
     bool SHOW_Bezier, SHOW_BSpline, SHOW_CRoll;
-    int c;
-    
+    int c;// 0 = show all
+    string c_name;
+    string mode_name;
+
     int reso = 500;//resolution of interpolation
     int bezP_radius = 1;//circle preview size
 
